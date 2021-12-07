@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import 'package:flutter/material.dart';
 
 class Todo {
@@ -7,20 +9,26 @@ class Todo {
 }
 
 void main() => runApp(
-      new TodoApp(),
+      const TodoApp(),
     );
 
 class TodoApp extends StatelessWidget {
+  const TodoApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Todo list',
+      // ignore: prefer_const_constructors
       home: new TodoList(),
     );
   }
 }
 
 class TodoList extends StatefulWidget {
+  const TodoList({Key? key}) : super(key: key);
+
   @override
   _TodoListState createState() => new _TodoListState();
 }
@@ -32,12 +40,13 @@ class TodoItem extends StatelessWidget {
   }) : super(key: ObjectKey(todo));
 
   final Todo todo;
+  // ignore: prefer_typing_uninitialized_variables
   final onTodoChanged;
 
   TextStyle? _getTextStyle(bool checked) {
     if (!checked) return null;
 
-    return TextStyle(
+    return const TextStyle(
       color: Colors.black54,
       decoration: TextDecoration.lineThrough,
     );
@@ -66,10 +75,13 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Todo list'),
+        title: const Text(
+          'Todo list',
+          textAlign: TextAlign.center,
+          ),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: _todos.map((Todo todo) {
           return TodoItem(
             todo: todo,
@@ -80,7 +92,7 @@ class _TodoListState extends State<TodoList> {
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(),
           tooltip: 'Add Item',
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
     );
   }
 
